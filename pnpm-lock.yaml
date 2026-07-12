@@ -15,6 +15,28 @@ importers:
         specifier: ^5.6.3
         version: 5.9.3
 
+  apps/static-data:
+    dependencies:
+      '@veyrapro/ai-engine':
+        specifier: workspace:*
+        version: link:../../packages/ai-engine
+      '@veyrapro/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
+      '@veyrapro/sports-api-client':
+        specifier: workspace:*
+        version: link:../../packages/sports-api-client
+    devDependencies:
+      '@types/node':
+        specifier: ^22.7.5
+        version: 22.20.1
+      tsx:
+        specifier: ^4.19.1
+        version: 4.23.0
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+
   apps/web:
     dependencies:
       '@veyrapro/accumulator-engine':

@@ -3,214 +3,343 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>VeyraPro — Demo static</title>
+<title>VeyraPro</title>
 <style>
   :root {
-    --page-plane: #f9f9f7;
-    --surface-1: #fcfcfb;
-    --text-primary: #0b0b0b;
-    --text-secondary: #52514e;
-    --text-muted: #898781;
-    --gridline: #e1e0d9;
-    --border-hairline: rgba(11, 11, 11, 0.1);
-    --series-1: #2a78d6;
-    --status-good: #0ca30c;
-    --status-critical: #d03b3b;
-    --status-warning-bg: #fef3d9;
-    --status-warning-fg: #8a5a00;
+    --page-plane: #f9f9f7; --surface-1: #fcfcfb; --text-primary: #0b0b0b; --text-secondary: #52514e;
+    --text-muted: #898781; --gridline: #e1e0d9; --border-hairline: rgba(11, 11, 11, 0.1);
+    --series-1: #2a78d6; --status-good: #0ca30c; --status-critical: #d03b3b;
+    --status-warning-bg: #fef3d9; --status-warning-fg: #8a5a00;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --page-plane: #0d0d0d;
-      --surface-1: #1a1a19;
-      --text-primary: #ffffff;
-      --text-secondary: #c3c2b7;
-      --text-muted: #898781;
-      --gridline: #2c2c2a;
-      --border-hairline: rgba(255, 255, 255, 0.1);
-      --series-1: #3987e5;
+      --page-plane: #0d0d0d; --surface-1: #1a1a19; --text-primary: #ffffff; --text-secondary: #c3c2b7;
+      --text-muted: #898781; --gridline: #2c2c2a; --border-hairline: rgba(255, 255, 255, 0.1);
+      --series-1: #3987e5; --status-warning-bg: #332a10; --status-warning-fg: #e0b656;
     }
   }
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--page-plane);
-    color: var(--text-primary);
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
-  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  body { margin: 0; background: var(--page-plane); color: var(--text-primary); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 20px 18px 80px; }
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
   .brand .logo { width: 34px; height: 34px; border-radius: 8px; background: var(--series-1); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
   .brand span { font-size: 18px; font-weight: 600; }
-  .banner {
-    background: var(--status-warning-bg);
-    color: var(--status-warning-fg);
-    border-radius: 12px;
-    padding: 14px 18px;
-    font-size: 13px;
-    margin-bottom: 24px;
-    line-height: 1.5;
-  }
-  h1 { font-size: 22px; margin: 0 0 4px; }
-  .subtitle { color: var(--text-secondary); font-size: 14px; margin: 0 0 24px; }
-  .grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
-  .card { background: var(--surface-1); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 18px; }
-  .stat-label { font-size: 13px; color: var(--text-secondary); }
-  .stat-value { font-size: 28px; font-weight: 600; margin-top: 6px; font-variant-numeric: tabular-nums; }
-  .stat-value.good { color: var(--status-good); }
-  .stat-value.bad { color: var(--status-critical); }
+  nav { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; border-bottom: 1px solid var(--gridline); padding-bottom: 10px; }
+  nav button { border: none; background: transparent; color: var(--text-secondary); font-size: 13px; font-weight: 500; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+  nav button.active { background: color-mix(in srgb, var(--series-1) 12%, transparent); color: var(--series-1); }
+  .banner { background: var(--status-warning-bg); color: var(--status-warning-fg); border-radius: 12px; padding: 12px 16px; font-size: 12.5px; margin-bottom: 20px; line-height: 1.5; }
+  h1 { font-size: 21px; margin: 0 0 4px; }
+  .subtitle { color: var(--text-secondary); font-size: 13.5px; margin: 0 0 20px; }
+  .grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .card { background: var(--surface-1); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 16px; }
+  .stat-label { font-size: 12.5px; color: var(--text-secondary); }
+  .stat-value { font-size: 26px; font-weight: 600; margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .stat-value.good { color: var(--status-good); } .stat-value.bad { color: var(--status-critical); }
   .stat-hint { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
-  .section-title { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
-  .section-title h2 { font-size: 16px; margin: 0; }
-  .section-title span { font-size: 12px; color: var(--text-muted); }
-  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .section-title { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .section-title h2 { font-size: 15px; margin: 0; } .section-title span { font-size: 11.5px; color: var(--text-muted); }
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
   @media (max-width: 760px) { .cols2 { grid-template-columns: 1fr; } }
-  .row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--gridline); gap: 10px; }
+  .row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--gridline); gap: 10px; }
   .row:last-child { border-bottom: none; }
-  .match-name { font-weight: 500; font-size: 14px; }
-  .match-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-  .badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 10px; font-size: 11px; font-weight: 500; background: rgba(12,163,12,0.1); color: var(--status-good); white-space: nowrap; }
+  .match-name { font-weight: 500; font-size: 13.5px; } .match-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+  .badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 9px; font-size: 10.5px; font-weight: 500; background: rgba(12,163,12,0.1); color: var(--status-good); white-space: nowrap; }
+  .badge.neutral { background: color-mix(in srgb, var(--text-muted) 15%, transparent); color: var(--text-secondary); }
   .odds { font-weight: 600; font-variant-numeric: tabular-nums; margin-left: 8px; }
-  .ticket { border: 1px solid var(--border-hairline); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
-  .ticket-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .ticket-odds { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
-  .ticket-conf { font-size: 11px; color: var(--text-muted); text-align: right; }
-  .ticket ul { list-style: none; margin: 0; padding: 0; font-size: 12px; color: var(--text-secondary); }
-  .ticket li { padding: 2px 0; }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  th { text-align: left; font-size: 12px; color: var(--text-muted); font-weight: 500; padding-bottom: 8px; border-bottom: 1px solid var(--gridline); }
-  td { padding: 10px 0; border-bottom: 1px solid var(--gridline); }
-  td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  .outcome-won { color: var(--status-good); font-weight: 600; }
-  .outcome-lost { color: var(--status-critical); font-weight: 600; }
-  footer { margin-top: 32px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-hairline); padding-top: 16px; }
+  .ticket { border: 1px solid var(--border-hairline); border-radius: 12px; padding: 13px; margin-bottom: 10px; }
+  .ticket-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .ticket-odds { font-size: 19px; font-weight: 600; font-variant-numeric: tabular-nums; } .ticket-conf { font-size: 11px; color: var(--text-muted); text-align: right; }
+  .ticket ul { list-style: none; margin: 0; padding: 0; font-size: 11.5px; color: var(--text-secondary); } .ticket li { padding: 2px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th { text-align: left; font-size: 11.5px; color: var(--text-muted); font-weight: 500; padding-bottom: 8px; border-bottom: 1px solid var(--gridline); }
+  td { padding: 9px 0; border-bottom: 1px solid var(--gridline); } td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .outcome-won { color: var(--status-good); font-weight: 600; } .outcome-lost { color: var(--status-critical); font-weight: 600; }
+  .filters { display: flex; flex-wrap: wrap; gap: 12px; }
+  .field { display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; color: var(--text-secondary); }
+  .field input, .field select { border: 1px solid var(--border-hairline); background: transparent; color: var(--text-primary); border-radius: 8px; padding: 6px 8px; font-size: 13px; }
+  .btn { background: var(--series-1); color: #fff; border: none; border-radius: 8px; padding: 9px 16px; font-size: 13.5px; font-weight: 500; cursor: pointer; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  section { display: none; } section.active { display: block; }
+  footer { margin-top: 28px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-hairline); padding-top: 14px; }
   footer a { color: var(--series-1); }
+  .empty { padding: 24px 0; text-align: center; color: var(--text-muted); font-size: 13px; }
+  svg.chart { width: 100%; height: 160px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="brand"><div class="logo">V</div><span>VeyraPro</span></div>
 
-  <div class="banner">
-    ⚠️ <strong>Demo static</strong> — instantaneu generat pe 12 iulie 2026 cu date reale extrase din
-    serverul de date sportive, pentru a demonstra vizual aplicația. Nu este live: generarea de noi
-    acumulatoare, filtrele și actualizarea automată a predicțiilor necesită aplicația reală rulată
-    cu server + bază de date (Next.js + PostgreSQL), nu GitHub Pages. Cod sursă complet:
-    <a href="https://github.com/Balty1991/VeyraPro" style="color:inherit;">github.com/Balty1991/VeyraPro</a>.
-  </div>
+  <nav>
+    <button data-tab="dashboard" class="active">Dashboard</button>
+    <button data-tab="matches">Meciuri</button>
+    <button data-tab="accumulator">Generator Acumulator</button>
+    <button data-tab="performance">Performanță</button>
+  </nav>
 
-  <h1>Dashboard</h1>
-  <p class="subtitle">Prezentare generală a predicțiilor AI și a performanței platformei</p>
+  <div id="freshness" class="banner" style="display:none;"></div>
 
-  <div class="grid4">
-    <div class="card">
-      <div class="stat-label">Meciuri analizate azi</div>
-      <div class="stat-value">3</div>
-      <div class="stat-hint">de motorul AI</div>
-    </div>
-    <div class="card">
-      <div class="stat-label">Predicții în așteptare</div>
-      <div class="stat-value">3</div>
-      <div class="stat-hint">nedecontate încă</div>
-    </div>
-    <div class="card">
-      <div class="stat-label">Rată de succes (recent)</div>
-      <div class="stat-value bad">50.0%</div>
-      <div class="stat-hint">2 predicții decontate</div>
-    </div>
-    <div class="card">
-      <div class="stat-label">ROI (recent)</div>
-      <div class="stat-value bad">-36.0%</div>
-      <div class="stat-hint">miză uniformă de 1 unitate</div>
-    </div>
-  </div>
-
-  <div class="cols2">
-    <div class="card">
-      <div class="section-title"><h2>Top Predicții</h2><span>după încredere AI</span></div>
-
-      <div class="row">
-        <div>
-          <div class="match-name">Larne FC – SP Tre Fiori</div>
-          <div class="match-meta">Champions League · 14 iul., 19:00</div>
-        </div>
-        <div><span class="badge">1X2: home · conf 84%</span><span class="odds">1.22</span></div>
+  <section id="tab-dashboard" class="active">
+    <h1>Dashboard</h1>
+    <p class="subtitle">Prezentare generală a predicțiilor AI și a performanței platformei</p>
+    <div class="grid4" id="dash-stats"></div>
+    <div class="cols2">
+      <div class="card">
+        <div class="section-title"><h2>Top Predicții</h2><span>după încredere AI</span></div>
+        <div id="dash-predictions"></div>
       </div>
-
-      <div class="row">
-        <div>
-          <div class="match-name">Universitatea Craiova – ML Vitebsk</div>
-          <div class="match-meta">Champions League · 15 iul., 17:30</div>
-        </div>
-        <div><span class="badge">1X2: home · conf 80%</span><span class="odds">1.29</span></div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="match-name">Djurgårdens IF – Halmstads BK</div>
-          <div class="match-meta">Allsvenskan · 13 iul., 17:00</div>
-        </div>
-        <div><span class="badge">1X2: home · conf 72%</span><span class="odds">1.27</span></div>
+      <div class="card">
+        <div class="section-title"><h2>Top Recomandări (Acumulator)</h2><span>generate live, în browser</span></div>
+        <div id="dash-tickets"></div>
       </div>
     </div>
+  </section>
 
-    <div class="card">
-      <div class="section-title"><h2>Top Recomandări (Acumulator)</h2><span>scor combinat</span></div>
-
-      <div class="ticket">
-        <div class="ticket-head">
-          <span class="badge">3 selecții</span>
-          <div><div class="ticket-odds">@2.00</div><div class="ticket-conf">încredere medie 79%</div></div>
-        </div>
-        <ul>
-          <li>Larne FC – SP Tre Fiori — home @1.22</li>
-          <li>Universitatea Craiova – ML Vitebsk — home @1.29</li>
-          <li>Djurgårdens IF – Halmstads BK — home @1.27</li>
-        </ul>
-      </div>
-
-      <div class="ticket">
-        <div class="ticket-head">
-          <span class="badge">2 selecții</span>
-          <div><div class="ticket-odds">@1.57</div><div class="ticket-conf">încredere medie 82%</div></div>
-        </div>
-        <ul>
-          <li>Larne FC – SP Tre Fiori — home @1.22</li>
-          <li>Universitatea Craiova – ML Vitebsk — home @1.29</li>
-        </ul>
+  <section id="tab-matches">
+    <h1>Meciuri</h1>
+    <p class="subtitle">Toate meciurile analizate de AI, cu filtre</p>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="filters">
+        <label class="field">Tip predicție <select id="f-market"><option value="">Toate</option></select></label>
+        <label class="field">Încredere minimă
+          <select id="f-conf"><option value="">Orice</option><option value="0.6">60%+</option><option value="0.7">70%+</option><option value="0.8">80%+</option></select>
+        </label>
       </div>
     </div>
-  </div>
+    <div id="matches-list"></div>
+  </section>
 
-  <div class="card">
-    <div class="section-title"><h2>Performanță — rezultate decontate</h2><span>predicții AI vs. rezultate reale</span></div>
-    <table>
-      <thead>
-        <tr><th>Meci</th><th>Predicție</th><th class="num">Cotă</th><th class="num">Rezultat final</th><th class="num">Status</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Tottenham Hotspur – SK Slavia Praha</td>
-          <td>1X2: home</td>
-          <td class="num">1.28</td>
-          <td class="num">3–0</td>
-          <td class="num outcome-won">CÂȘTIGAT</td>
-        </tr>
-        <tr>
-          <td>Kairat Almaty – Club Brugge KV</td>
-          <td>1X2: home</td>
-          <td class="num">2.35</td>
-          <td class="num">1–4</td>
-          <td class="num outcome-lost">PIERDUT</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <section id="tab-accumulator">
+    <h1>Generator de Acumulator</h1>
+    <p class="subtitle">Combină automat, în browser, cele mai sigure predicții într-un bilet optimizat</p>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="filters">
+        <label class="field">Min. selecții <input id="c-minLegs" type="number" value="2" min="2" max="10" /></label>
+        <label class="field">Max. selecții <input id="c-maxLegs" type="number" value="6" min="2" max="10" /></label>
+        <label class="field">Cotă combinată min. <input id="c-minOdds" type="number" step="0.1" placeholder="ex. 2.0" /></label>
+        <label class="field">Cotă combinată max. <input id="c-maxOdds" type="number" step="0.1" placeholder="ex. 8.0" /></label>
+        <label class="field">Cotă/selecție min. <input id="c-legMin" type="number" step="0.01" value="1.2" /></label>
+        <label class="field">Cotă/selecție max. <input id="c-legMax" type="number" step="0.01" value="1.4" /></label>
+      </div>
+      <button class="btn" id="c-generate" style="margin-top:14px;">Generează combinații</button>
+      <p id="c-pool" class="stat-hint" style="margin-top:10px;"></p>
+    </div>
+    <div id="acc-results"></div>
+  </section>
+
+  <section id="tab-performance">
+    <h1>Performanță</h1>
+    <p class="subtitle">Predicțiile AI confruntate cu rezultatele reale, validate prin API</p>
+    <div class="grid4" id="perf-stats"></div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="section-title"><h2>Evoluție rată de succes</h2><span>ultimele 90 de zile</span></div>
+      <div id="perf-chart"></div>
+    </div>
+    <div class="card"><div class="section-title"><h2>Detaliu pe tip de piață</h2></div><table id="perf-table"><thead><tr><th>Piață</th><th>Total</th><th>Câștigate</th><th>Rată succes</th></tr></thead><tbody></tbody></table></div>
+  </section>
 
   <footer>
     Predicțiile AI sunt estimări statistice, nu garanții. Pariază responsabil. ·
-    Instantaneu static generat de Claude pe 12 iulie 2026 din datele demo ale aplicației VeyraPro.
+    Datele se actualizează automat la fiecare 3 ore printr-un GitHub Actions workflow. ·
+    <a href="https://github.com/Balty1991/VeyraPro">Cod sursă</a>
   </footer>
 </div>
+
+<script>
+const MARKET_LABELS = { "1x2": "1X2", over_under_15: "Total goluri 1.5", over_under_25: "Total goluri 2.5", over_under_35: "Total goluri 3.5", btts: "Ambele marchează", double_chance: "Șansă dublă", draw_no_bet: "Fără egal" };
+const fmtOdds = (o) => Number(o).toFixed(2);
+const fmtPct = (v, d = 1) => `${Number(v).toFixed(d)}%`;
+const fmtDate = (iso) => new Date(iso).toLocaleString("ro-RO", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
+
+let MATCHES = [];
+let PERFORMANCE = { summary: null, trend: [], records: [] };
+
+async function loadData() {
+  try {
+    const [m, p] = await Promise.all([
+      fetch("./data/matches.json").then((r) => (r.ok ? r.json() : [])),
+      fetch("./data/performance.json").then((r) => (r.ok ? r.json() : { summary: null, trend: [], records: [] })),
+    ]);
+    MATCHES = m || [];
+    PERFORMANCE = p || { summary: null, trend: [], records: [] };
+    if (p && p.generatedAt) {
+      const el = document.getElementById("freshness");
+      el.style.display = "block";
+      el.textContent = `Ultima actualizare automată: ${fmtDate(p.generatedAt)} (la fiecare 3 ore, via GitHub Actions)`;
+    }
+  } catch (err) {
+    console.error("Failed to load data", err);
+  }
+}
+
+// --- Client-side port of the accumulator backtracking generator ---
+function generateTickets(legs, constraints) {
+  const merged = { minLegs: 2, maxLegs: 6, maxTickets: 10, ...constraints };
+  const pool = legs
+    .filter((l) => (merged.minLegOdds == null || l.odds >= merged.minLegOdds) && (merged.maxLegOdds == null || l.odds <= merged.maxLegOdds) && (merged.minLegConfidence == null || l.confidence >= merged.minLegConfidence))
+    .sort((a, b) => b.confidence - a.confidence)
+    .slice(0, 25);
+
+  const candidates = [];
+  let nodes = 0;
+
+  function backtrack(start, combo, used, odds) {
+    if (nodes++ > 200000) return;
+    if (combo.length >= merged.minLegs) {
+      const within = (merged.minCombinedOdds == null || odds >= merged.minCombinedOdds) && (merged.maxCombinedOdds == null || odds <= merged.maxCombinedOdds);
+      if (within) {
+        const avgConf = combo.reduce((s, l) => s + l.confidence, 0) / combo.length;
+        const diversity = new Set(combo.map((l) => l.league)).size / combo.length;
+        candidates.push({ legs: [...combo], combinedOdds: odds, averageConfidence: avgConf, score: odds * avgConf ** 2 * (0.85 + 0.15 * diversity) });
+      }
+    }
+    if (combo.length >= merged.maxLegs) return;
+    if (merged.maxCombinedOdds != null && odds > merged.maxCombinedOdds) return;
+    for (let i = start; i < pool.length; i++) {
+      const leg = pool[i];
+      if (used.has(leg.matchId)) continue;
+      used.add(leg.matchId);
+      combo.push(leg);
+      backtrack(i + 1, combo, used, odds * leg.odds);
+      combo.pop();
+      used.delete(leg.matchId);
+    }
+  }
+
+  backtrack(0, [], new Set(), 1);
+  return candidates.sort((a, b) => b.score - a.score).slice(0, merged.maxTickets);
+}
+
+function safeLegsFromMatches(matches) {
+  const legs = [];
+  for (const m of matches) {
+    for (const pick of [m.primaryPick, m.secondaryPick]) {
+      if (!pick || !pick.accumulatorSafe) continue;
+      legs.push({ matchId: m.matchId, homeTeam: m.homeTeam, awayTeam: m.awayTeam, league: m.league, market: pick.market, selection: pick.selection, odds: pick.odds, confidence: pick.confidence });
+    }
+  }
+  return legs;
+}
+
+function ticketHtml(t, rank) {
+  return `<div class="ticket">
+    <div class="ticket-head">
+      <span class="badge ${rank === 0 ? "" : "neutral"}">${rank === 0 ? "Cea mai bună combinație" : t.legs.length + " selecții"}</span>
+      <div><div class="ticket-odds">@${fmtOdds(t.combinedOdds)}</div><div class="ticket-conf">încredere medie ${fmtPct(t.averageConfidence * 100, 0)}</div></div>
+    </div>
+    <ul>${t.legs.map((l) => `<li>${l.homeTeam} - ${l.awayTeam} — ${l.selection} @${fmtOdds(l.odds)}</li>`).join("")}</ul>
+  </div>`;
+}
+
+function renderDashboard() {
+  const upcoming = MATCHES.length;
+  const pending = PERFORMANCE.records.filter((r) => r.actualOutcome === "pending").length;
+  const s = PERFORMANCE.summary;
+  document.getElementById("dash-stats").innerHTML = `
+    <div class="card"><div class="stat-label">Meciuri analizate</div><div class="stat-value">${upcoming}</div><div class="stat-hint">de motorul AI</div></div>
+    <div class="card"><div class="stat-label">Predicții în așteptare</div><div class="stat-value">${pending}</div><div class="stat-hint">nedecontate încă</div></div>
+    <div class="card"><div class="stat-label">Rată de succes</div><div class="stat-value ${s && s.hitRatePct >= 55 ? "good" : "bad"}">${s ? fmtPct(s.hitRatePct) : "—"}</div><div class="stat-hint">${s ? s.settled + " decontate" : "fără date"}</div></div>
+    <div class="card"><div class="stat-label">ROI</div><div class="stat-value ${s && s.roiPct >= 0 ? "good" : "bad"}">${s ? (s.roiPct >= 0 ? "+" : "") + fmtPct(s.roiPct) : "—"}</div><div class="stat-hint">miză uniformă</div></div>
+  `;
+
+  const top = [...MATCHES].sort((a, b) => b.primaryPick.confidence - a.primaryPick.confidence).slice(0, 6);
+  document.getElementById("dash-predictions").innerHTML = top.length
+    ? top.map((m) => `<div class="row"><div><div class="match-name">${m.homeTeam} – ${m.awayTeam}</div><div class="match-meta">${m.league} · ${fmtDate(m.kickoffAt)}</div></div><div><span class="badge ${m.primaryPick.accumulatorSafe ? "" : "neutral"}">${MARKET_LABELS[m.primaryPick.market] || m.primaryPick.market}: ${m.primaryPick.selection}</span><span class="odds">${fmtOdds(m.primaryPick.odds)}</span></div></div>`).join("")
+    : `<p class="empty">Niciun meci analizat încă — se populează la prima rulare a workflow-ului.</p>`;
+
+  const legs = safeLegsFromMatches(MATCHES);
+  const tickets = generateTickets(legs, { minLegs: 2, maxLegs: 6, minLegConfidence: 0.6, minLegOdds: 1.15, maxLegOdds: 1.45, maxTickets: 3 });
+  document.getElementById("dash-tickets").innerHTML = tickets.length ? tickets.map(ticketHtml).join("") : `<p class="empty">Niciun bilet generat încă — vezi Generatorul de Acumulator.</p>`;
+}
+
+function renderMatches() {
+  const marketSel = document.getElementById("f-market");
+  if (marketSel.options.length <= 1) {
+    Object.entries(MARKET_LABELS).forEach(([k, v]) => marketSel.add(new Option(v, k)));
+  }
+  const market = document.getElementById("f-market").value;
+  const minConf = Number(document.getElementById("f-conf").value || 0);
+  const filtered = MATCHES.filter((m) => (!market || m.primaryPick.market === market) && m.primaryPick.confidence >= minConf);
+
+  document.getElementById("matches-list").innerHTML = filtered.length
+    ? filtered.map((m) => `<div class="card" style="margin-bottom:10px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+        <div><div class="match-meta">${m.league} · ${fmtDate(m.kickoffAt)}</div><div class="match-name">${m.homeTeam} – ${m.awayTeam}</div></div>
+        <div style="text-align:right;">
+          <div><span class="badge ${m.primaryPick.accumulatorSafe ? "" : "neutral"}">conf ${fmtPct(m.primaryPick.confidence * 100, 0)}</span> <span class="odds">${MARKET_LABELS[m.primaryPick.market] || m.primaryPick.market}: ${m.primaryPick.selection} @${fmtOdds(m.primaryPick.odds)}</span></div>
+          <div class="stat-hint">edge ${m.primaryPick.edge >= 0 ? "+" : ""}${fmtPct(m.primaryPick.edge * 100, 1)} · calitate date ${fmtPct(m.dataQualityScore * 100, 0)}</div>
+        </div>
+      </div>`).join("")
+    : `<div class="card"><p class="empty">Niciun meci nu corespunde filtrelor.</p></div>`;
+}
+
+function renderAccumulatorResults(tickets, poolSize) {
+  document.getElementById("c-pool").textContent = `${poolSize} selecții sigure disponibile în bazinul de analiză.`;
+  document.getElementById("acc-results").innerHTML = tickets.length
+    ? tickets.map(ticketHtml).join("")
+    : `<div class="card"><p class="empty">Nicio combinație nu îndeplinește constrângerile — relaxează filtrele.</p></div>`;
+}
+
+function renderPerformance() {
+  const s = PERFORMANCE.summary;
+  document.getElementById("perf-stats").innerHTML = s ? `
+    <div class="card"><div class="stat-label">Predicții totale</div><div class="stat-value">${s.totalPredictions}</div><div class="stat-hint">ultimele 90 de zile</div></div>
+    <div class="card"><div class="stat-label">Decontate</div><div class="stat-value">${s.settled}</div><div class="stat-hint">${s.won} câștigate / ${s.lost} pierdute</div></div>
+    <div class="card"><div class="stat-label">Rată de succes</div><div class="stat-value ${s.hitRatePct >= 55 ? "good" : "bad"}">${fmtPct(s.hitRatePct)}</div></div>
+    <div class="card"><div class="stat-label">ROI</div><div class="stat-value ${s.roiPct >= 0 ? "good" : "bad"}">${s.roiPct >= 0 ? "+" : ""}${fmtPct(s.roiPct)}</div><div class="stat-hint">cotă medie ${s.avgOdds.toFixed(2)}</div></div>
+  ` : `<div class="card"><p class="empty">Fără date încă.</p></div>`;
+
+  const tbody = document.querySelector("#perf-table tbody");
+  const rows = s ? Object.entries(s.byMarket).sort(([, a], [, b]) => b.total - a.total) : [];
+  tbody.innerHTML = rows.length
+    ? rows.map(([market, b]) => `<tr><td>${MARKET_LABELS[market] || market}</td><td class="num">${b.total}</td><td class="num">${b.won}</td><td class="num">${fmtPct(b.hitRatePct)}</td></tr>`).join("")
+    : `<tr><td colspan="4" class="empty">Fără date decontate încă.</td></tr>`;
+
+  const trend = PERFORMANCE.trend || [];
+  const chartEl = document.getElementById("perf-chart");
+  if (trend.length < 2) {
+    chartEl.innerHTML = `<p class="empty">Nu există încă suficiente rezultate decontate pentru grafic.</p>`;
+    return;
+  }
+  const w = 800, h = 160, pad = 24;
+  const xs = trend.map((_, i) => pad + (i * (w - 2 * pad)) / (trend.length - 1));
+  const ys = trend.map((t) => h - pad - (t.hitRatePct / 100) * (h - 2 * pad));
+  const path = xs.map((x, i) => `${i === 0 ? "M" : "L"}${x.toFixed(1)},${ys[i].toFixed(1)}`).join(" ");
+  chartEl.innerHTML = `<svg class="chart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <line x1="${pad}" y1="${h - pad}" x2="${w - pad}" y2="${h - pad}" stroke="var(--gridline)" />
+    <path d="${path}" fill="none" stroke="var(--series-1)" stroke-width="2" />
+    ${xs.map((x, i) => `<circle cx="${x}" cy="${ys[i]}" r="3" fill="var(--series-1)"><title>${trend[i].date}: ${fmtPct(trend[i].hitRatePct)}</title></circle>`).join("")}
+  </svg>`;
+}
+
+function switchTab(tab) {
+  document.querySelectorAll("section").forEach((s) => s.classList.toggle("active", s.id === `tab-${tab}`));
+  document.querySelectorAll("nav button").forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
+}
+
+document.querySelectorAll("nav button").forEach((b) => b.addEventListener("click", () => switchTab(b.dataset.tab)));
+document.getElementById("f-market").addEventListener("change", renderMatches);
+document.getElementById("f-conf").addEventListener("change", renderMatches);
+document.getElementById("c-generate").addEventListener("click", () => {
+  const legs = safeLegsFromMatches(MATCHES);
+  const constraints = {
+    minLegs: Number(document.getElementById("c-minLegs").value || 2),
+    maxLegs: Number(document.getElementById("c-maxLegs").value || 6),
+    minCombinedOdds: document.getElementById("c-minOdds").value ? Number(document.getElementById("c-minOdds").value) : undefined,
+    maxCombinedOdds: document.getElementById("c-maxOdds").value ? Number(document.getElementById("c-maxOdds").value) : undefined,
+    minLegOdds: Number(document.getElementById("c-legMin").value || 1.2),
+    maxLegOdds: Number(document.getElementById("c-legMax").value || 1.4),
+    minLegConfidence: 0.6,
+    maxTickets: 8,
+  };
+  const tickets = generateTickets(legs, constraints);
+  renderAccumulatorResults(tickets, legs.length);
+});
+
+loadData().then(() => {
+  renderDashboard();
+  renderMatches();
+  renderPerformance();
+});
+</script>
 </body>
 </html>
