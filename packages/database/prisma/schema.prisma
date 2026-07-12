@@ -1,0 +1,168 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MatchStatus {
+  NOTSTARTED
+  INPROGRESS
+  FINISHED
+}
+
+enum PickType {
+  PRIMARY
+  SECONDARY
+}
+
+enum OutcomeStatus {
+  PENDING
+  WON
+  LOST
+  VOID
+}
+
+model League {
+  id         String  @id @default(cuid())
+  externalId Int     @unique
+  name       String
+  country    String
+  matches    Match[]
+
+  @@index([country])
+}
+
+model Team {
+  id         String  @id @default(cuid())
+  externalId Int     @unique
+  name       String
+  country    String?
+  logoUrl    String?
+
+  homeMatches Match[] @relation("HomeTeam")
+  awayMatches Match[] @relation("AwayTeam")
+}
+
+/// One fixture, enriched with every data point pulled from the sports feed.
+/// Nested provider payloads (form, H2H, coaches, weather, native ML) are
+/// stored as JSON snapshots — they are inputs to the AI analysis, not
+/// independently queried, so normalizing them further buys nothing.
+model Match {
+  id               String      @id @default(cuid())
+  externalEventId  Int         @unique
+  league           League      @relation(fields: [leagueId], references: [id])
+  leagueId         String
+  kickoffAt        DateTime
+  status           MatchStatus @default(NOTSTARTED)
+
+  homeTeam   Team   @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  homeTeamId String
+  awayTeam   Team   @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  awayTeamId String
+
+  venue    Json?
+  referee  Json?
+  homeCoach Json?
+  awayCoach Json?
+  weather  Json?
+
+  homeForm Json?
+  awayForm Json?
+  h2h      Json?
+
+  nativeMlPrediction Json?
+  dataComplete       Boolean @default(false)
+
+  finalScoreHome Int?
+  finalScoreAway Int?
+
+  oddsSnapshots     OddsSnapshot[]
+  aiAnalysis        AIAnalysis?
+  accumulatorLegs   AccumulatorTicketLeg[]
+  performanceRecords PerformanceRecord[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([kickoffAt])
+  @@index([status])
+  @@index([dataComplete])
+}
+
+/// Point-in-time snapshot of one market's odds across all bookmakers, kept
+/// so the dashboard can chart line movement instead of only showing latest.
+model OddsSnapshot {
+  id         String   @id @default(cuid())
+  match      Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  matchId    String
+  market     String
+  capturedAt DateTime
+  rows       Json
+  bestByOutcome Json
+
+  @@index([matchId, market])
+}
+
+model AIAnalysis {
+  id               String   @id @default(cuid())
+  match            Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  matchId          String   @unique
+  modelUsed        String
+  generatedAt      DateTime
+  dataQualityScore Float
+  primaryPick      Json
+  secondaryPick    Json?
+  riskNotes        String?
+
+  @@index([generatedAt])
+}
+
+model AccumulatorTicket {
+  id                String                 @id @default(cuid())
+  combinedOdds      Float
+  averageConfidence Float
+  score             Float
+  status            OutcomeStatus          @default(PENDING)
+  generatedAt       DateTime               @default(now())
+  legs              AccumulatorTicketLeg[]
+
+  @@index([generatedAt])
+  @@index([status])
+}
+
+model AccumulatorTicketLeg {
+  id         String            @id @default(cuid())
+  ticket     AccumulatorTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  ticketId   String
+  match      Match             @relation(fields: [matchId], references: [id])
+  matchId    String
+  market     String
+  selection  String
+  odds       Float
+  confidence Float
+
+  @@index([ticketId])
+  @@index([matchId])
+}
+
+/// Grades one AI pick against the settled result — the source table for the
+/// Performance / Statistics page (hit-rate, ROI, per-market breakdown).
+model PerformanceRecord {
+  id            String        @id @default(cuid())
+  match         Match         @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  matchId       String
+  pickType      PickType
+  market        String
+  selection     String
+  odds          Float
+  confidence    Float
+  actualOutcome OutcomeStatus @default(PENDING)
+  settledAt     DateTime?
+
+  @@index([matchId])
+  @@index([actualOutcome])
+  @@index([market])
+}
