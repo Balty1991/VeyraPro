@@ -1,0 +1,68 @@
+[
+  {
+    "matchId": "210767",
+    "externalEventId": 210767,
+    "league": "Champions League",
+    "homeTeam": "Larne FC",
+    "awayTeam": "SP Tre Fiori",
+    "kickoffAt": "2026-07-14T19:00:00Z",
+    "primaryPick": {
+      "market": "1x2",
+      "selection": "home",
+      "bookmaker": "Novibet",
+      "odds": 1.22,
+      "impliedProbability": 0.8197,
+      "confidence": 0.84,
+      "edge": 0.02,
+      "reasoning": "Larne (campioana NIFL) a invins deja 1-0 in deplasare la SP Tre Fiori cu o saptamana inainte. Piata confirma superioritatea clara (~82% implicit), peste modelul ML (65.4%).",
+      "accumulatorSafe": true
+    },
+    "secondaryPick": null,
+    "dataQualityScore": 0.9,
+    "analyzedAt": "2026-07-12T22:15:38.981Z"
+  },
+  {
+    "matchId": "210763",
+    "externalEventId": 210763,
+    "league": "Champions League",
+    "homeTeam": "Universitatea Craiova",
+    "awayTeam": "ML Vitebsk",
+    "kickoffAt": "2026-07-15T17:30:00Z",
+    "primaryPick": {
+      "market": "1x2",
+      "selection": "home",
+      "bookmaker": "Bwin",
+      "odds": 1.29,
+      "impliedProbability": 0.7752,
+      "confidence": 0.8,
+      "edge": 0.025,
+      "reasoning": "Modelul ML da 71.7% sansa gazdelor, cu 2.65 goluri asteptate. Craiova, echipa de Superliga, intalneste un adversar semi-profesionist din Belarus in preliminariile Champions League.",
+      "accumulatorSafe": true
+    },
+    "secondaryPick": null,
+    "dataQualityScore": 0.75,
+    "analyzedAt": "2026-07-12T22:15:38.981Z"
+  },
+  {
+    "matchId": "46392",
+    "externalEventId": 46392,
+    "league": "Allsvenskan",
+    "homeTeam": "Djurgårdens IF",
+    "awayTeam": "Halmstads BK",
+    "kickoffAt": "2026-07-13T17:00:00Z",
+    "primaryPick": {
+      "market": "1x2",
+      "selection": "home",
+      "bookmaker": "Novibet",
+      "odds": 1.27,
+      "impliedProbability": 0.7874,
+      "confidence": 0.72,
+      "edge": -0.067,
+      "reasoning": "Djurgarden favorita clara acasa (58.9% ML), dar edge usor negativ fata de cota pietei — pastram ca pick sigur pentru acumulator, nu ca value bet independent.",
+      "accumulatorSafe": true
+    },
+    "secondaryPick": null,
+    "dataQualityScore": 0.7,
+    "analyzedAt": "2026-07-12T22:15:38.981Z"
+  }
+]

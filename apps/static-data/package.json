@@ -1,0 +1,22 @@
+{
+  "name": "@veyrapro/static-data",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "refresh": "tsx src/refresh.ts",
+    "seed:initial": "tsx src/seed-initial.ts",
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@veyrapro/ai-engine": "workspace:*",
+    "@veyrapro/domain": "workspace:*",
+    "@veyrapro/sports-api-client": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
+  }
+}

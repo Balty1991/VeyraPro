@@ -1,0 +1,112 @@
+{
+  "summary": {
+    "periodFrom": "2026-04-13T22:15:38.981Z",
+    "periodTo": "2026-07-12T22:15:38.981Z",
+    "totalPredictions": 5,
+    "settled": 2,
+    "won": 1,
+    "lost": 1,
+    "hitRatePct": 50,
+    "avgOdds": 1.815,
+    "roiPct": -36,
+    "byMarket": {
+      "1x2": {
+        "total": 2,
+        "won": 1,
+        "hitRatePct": 50
+      }
+    }
+  },
+  "trend": [
+    {
+      "date": "2026-07-07",
+      "hitRatePct": 0,
+      "total": 1
+    },
+    {
+      "date": "2026-07-10",
+      "hitRatePct": 100,
+      "total": 1
+    }
+  ],
+  "records": [
+    {
+      "id": "2168:primary",
+      "matchId": "2168",
+      "externalEventId": 2168,
+      "homeTeam": "Tottenham Hotspur",
+      "awayTeam": "SK Slavia Praha",
+      "league": "Champions League",
+      "kickoffAt": "2025-12-09T20:00:00Z",
+      "pickType": "primary",
+      "market": "1x2",
+      "selection": "home",
+      "odds": 1.28,
+      "confidence": 0.8,
+      "actualOutcome": "won",
+      "settledAt": "2026-07-10T22:15:38.981Z"
+    },
+    {
+      "id": "2178:primary",
+      "matchId": "2178",
+      "externalEventId": 2178,
+      "homeTeam": "Kairat Almaty",
+      "awayTeam": "Club Brugge KV",
+      "league": "Champions League",
+      "kickoffAt": "2026-01-20T15:30:00Z",
+      "pickType": "primary",
+      "market": "1x2",
+      "selection": "home",
+      "odds": 2.35,
+      "confidence": 0.65,
+      "actualOutcome": "lost",
+      "settledAt": "2026-07-07T22:15:38.981Z"
+    },
+    {
+      "id": "210767:primary",
+      "matchId": "210767",
+      "externalEventId": 210767,
+      "homeTeam": "Larne FC",
+      "awayTeam": "SP Tre Fiori",
+      "league": "Champions League",
+      "kickoffAt": "2026-07-14T19:00:00Z",
+      "pickType": "primary",
+      "market": "1x2",
+      "selection": "home",
+      "odds": 1.22,
+      "confidence": 0.84,
+      "actualOutcome": "pending"
+    },
+    {
+      "id": "210763:primary",
+      "matchId": "210763",
+      "externalEventId": 210763,
+      "homeTeam": "Universitatea Craiova",
+      "awayTeam": "ML Vitebsk",
+      "league": "Champions League",
+      "kickoffAt": "2026-07-15T17:30:00Z",
+      "pickType": "primary",
+      "market": "1x2",
+      "selection": "home",
+      "odds": 1.29,
+      "confidence": 0.8,
+      "actualOutcome": "pending"
+    },
+    {
+      "id": "46392:primary",
+      "matchId": "46392",
+      "externalEventId": 46392,
+      "homeTeam": "Djurgårdens IF",
+      "awayTeam": "Halmstads BK",
+      "league": "Allsvenskan",
+      "kickoffAt": "2026-07-13T17:00:00Z",
+      "pickType": "primary",
+      "market": "1x2",
+      "selection": "home",
+      "odds": 1.27,
+      "confidence": 0.72,
+      "actualOutcome": "pending"
+    }
+  ],
+  "generatedAt": "2026-07-12T22:15:38.993Z"
+}
